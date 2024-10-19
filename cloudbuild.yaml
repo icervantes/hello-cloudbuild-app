@@ -96,10 +96,7 @@ steps:
     volumes:
       - name: "ssh"
         path: /root/.ssh
-availableSecrets:
-  secretManager:
-    - versionName: projects/589873239070/secrets/tomasuhuhuu/versions/1
-      env: "SSH_KEY"
+
 options:
   logging: CLOUD_LOGGING_ONLY
 # [END gke_management_gitops_delivery_cloudbuild_trigger_cd]
