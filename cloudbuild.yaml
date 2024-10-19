@@ -73,7 +73,6 @@ steps:
       - |
         set -x && \
         cd hello-cloudbuild-env && \
-        git config remote.origin.url https://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@github.com/icervantes/hello-cloudbuild-env.git && \
         git add kubernetes.yaml && \
         git commit -m "Deploying image us-central1-docker.pkg.dev/$PROJECT_ID/my-repository/hello-cloudbuild:${SHORT_SHA}
         Built from commit ${COMMIT_SHA} of repository hello-cloudbuild-app
