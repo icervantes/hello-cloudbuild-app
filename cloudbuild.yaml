@@ -84,9 +84,6 @@ steps:
       - push
       - origin
       - candidate
-    volumes:
-      - name: "ssh"
-        path: /root/.ssh
 
 options:
   logging: CLOUD_LOGGING_ONLY
