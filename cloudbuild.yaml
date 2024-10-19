@@ -46,6 +46,9 @@ steps:
     args:
       - clone
       - git@github.com:icervantes/hello-cloudbuild-env
+    volumes:
+      - name: "ssh"
+        path: /root/.ssh
 
   # [START gke_management_gitops_delivery_cloudbuild_trigger_cd]
   # This step clones the hello-cloudbuild-env repository
@@ -89,6 +92,9 @@ steps:
       - push
       - origin
       - candidate
+    volumes:
+      - name: "ssh"
+        path: /root/.ssh
 
 options:
   logging: CLOUD_LOGGING_ONLY
