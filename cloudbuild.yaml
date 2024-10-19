@@ -14,19 +14,6 @@
 
 # [START gke_management_gitops_delivery_cloudbuild]
 steps:
-  - name: "gcr.io/cloud-builders/git"
-    secretEnv: ["SSH_KEY"]
-    entrypoint: "bash"
-    args:
-      - -c
-      - |
-        echo "$$SSH_KEY" >> /root/.ssh/id_rsa
-        chmod 400 /root/.ssh/id_rsa
-        cp known_hosts.github /root/.ssh/known_hosts
-    volumes:
-      - name: "ssh"
-        path: /root/.ssh
-
   # This step runs the unit tests on the app
   - name: "python:3.7-slim"
     id: Test
@@ -54,6 +41,18 @@ steps:
       - "us-central1-docker.pkg.dev/$PROJECT_ID/my-repository/hello-cloudbuild:$SHORT_SHA"
   # [END gke_management_gitops_delivery_cloudbuild]
 
+  - name: "gcr.io/cloud-builders/git"
+    secretEnv: ["SSH_KEY"]
+    entrypoint: "bash"
+    args:
+      - -c
+      - |
+        echo "$$SSH_KEY" >> /root/.ssh/id_rsa
+        chmod 400 /root/.ssh/id_rsa
+        cp known_hosts.github /root/.ssh/known_hosts
+    volumes:
+      - name: "ssh"
+        path: /root/.ssh
   # Clone the repository
   - name: "gcr.io/cloud-builders/git"
     args:
@@ -63,11 +62,6 @@ steps:
     volumes:
       - name: "ssh"
         path: /root/.ssh
-
-    availableSecrets:
-      secretManager:
-        - versionName: projects/589873239070/secrets/tomasuhuhuu/versions/1
-          env: "SSH_KEY"
 
   # [START gke_management_gitops_delivery_cloudbuild_trigger_cd]
   # This step clones the hello-cloudbuild-env repository
@@ -114,7 +108,10 @@ steps:
     volumes:
       - name: "ssh"
         path: /root/.ssh
-
+availableSecrets:
+  secretManager:
+    - versionName: projects/589873239070/secrets/tomasuhuhuu/versions/1
+      env: "SSH_KEY"
 options:
   logging: CLOUD_LOGGING_ONLY
 # [END gke_management_gitops_delivery_cloudbuild_trigger_cd]
