@@ -41,19 +41,18 @@ steps:
       - "us-central1-docker.pkg.dev/$PROJECT_ID/my-repository/hello-cloudbuild:$SHORT_SHA"
   # [END gke_management_gitops_delivery_cloudbuild]
 
-  # [START gke_management_gitops_delivery_cloudbuild_trigger_cd]
-  # This step clones the hello-cloudbuild-env repository
-  - name: "gcr.io/cloud-builders/gcloud"
+  - name: "gcr.io/cloud-builders/git"
     id: Clone env repository 2
-    entrypoint: /bin/sh
+    entrypoint: "/bin/sh"
     args:
       - "-c"
       - |
-        git clone https://github.com/icervantes/hello-cloudbuild-env.git && \
+        GITHUB_TOKEN=$(gcloud secrets versions access latest --secret=github-token) && \
+        git config --global user.email "lord.icervantes@gmail.com" && \
+        git config --global user.name "icervantes" && \
+        git clone https://$GITHUB_TOKEN@github.com/icervantes/hello-cloudbuild-env.git && \
         cd hello-cloudbuild-env && \
-        git remote set-url origin https://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@github.com/icervantes/hello-cloudbuild-env.git && \
-        git checkout candidate && \
-        git config user.email $(gcloud auth list --filter=status:ACTIVE --format='value(account)')
+        git checkout candidate
 
   # This step generates the new manifest
   - name: "gcr.io/cloud-builders/gcloud"
@@ -74,7 +73,10 @@ steps:
       - |
         set -x && \
         cd hello-cloudbuild-env && \
-        git remote set-url origin https://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@github.com/icervantes/hello-cloudbuild-env.git && \
+        GITHUB_TOKEN=$(gcloud secrets versions access latest --secret=github-token) && \
+        git config --global user.email "lord.icervantes@gmail.com" && \
+        git config --global user.name "icervantes" && \
+        git remote set-url origin https://$GITHUB_TOKEN@github.com/icervantes/hello-cloudbuild-env.git && \
         git add kubernetes.yaml && \
         git commit -m "Deployingimage us-central1-docker.pkg.dev/$PROJECT_ID/my-repository/hello-cloudbuild:${SHORT_SHA}
         Built from commit ${COMMIT_SHA} of repository hello-cloudbuild-app
