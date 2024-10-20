@@ -49,17 +49,17 @@ steps:
     args:
       - "-c"
       - |
-        git remote set-url origin https://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@github.com/icervantes/hello-cloudbuild-env.git && \
         git clone https://github.com/icervantes/hello-cloudbuild-env.git && \
         cd hello-cloudbuild-env && \
         git checkout candidate && \
-        sed "s/GOOGLE_CLOUD_PROJECT/${PROJECT_ID}/g" kubernetes.yaml.tpl | \
-        sed "s/COMMIT_SHA/${SHORT_SHA}/g" > hello-cloudbuild-env/kubernetes.yaml
+        sed "s/GOOGLE_CLOUD_PROJECT/${PROJECT_ID}/g" kubernetes.yaml.tpl && \
+        sed "s/COMMIT_SHA/${SHORT_SHA}/g" > hello-cloudbuild-env/kubernetes.yaml && \
         cd hello-cloudbuild-env && \
         git add kubernetes.yaml && \
         git commit -m "Deployingimage us-central1-docker.pkg.dev/$PROJECT_ID/my-repository/hello-cloudbuild:${SHORT_SHA}
         Built from commit ${COMMIT_SHA} of repository hello-cloudbuild-app
-        Author: $(git log --format='%an <%ae>' -n 1 HEAD)"
+        Author: $(git log --format='%an <%ae>' -n 1 HEAD)" && \
+        git remote set-url origin https://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@github.com/icervantes/hello-cloudbuild-env.git && \
         git push origin candidate
 
 options:
