@@ -33,6 +33,8 @@ spec:
         image: us-central1-docker.pkg.dev/GOOGLE_CLOUD_PROJECT/my-repository/hello-cloudbuild:COMMIT_SHA
         ports:
         - containerPort: 8080
+options:
+  logging: CLOUD_LOGGING_ONLY
 ---
 kind: Service
 apiVersion: v1
