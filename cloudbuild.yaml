@@ -50,7 +50,7 @@ steps:
       - "-c"
       - |
         git remote set-url origin https://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@github.com/icervantes/hello-cloudbuild-env.git && \
-        git -c http.https://github.com/icervantes/hello-cloudbuild-env.git.extraheader="Authorization: Basic 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" clone https://github.com/icervantes/hello-cloudbuild-env.git && \
+        git clone https://github.com/icervantes/hello-cloudbuild-env.git && \
         cd hello-cloudbuild-env && \
         git checkout candidate && \
         sed "s/GOOGLE_CLOUD_PROJECT/${PROJECT_ID}/g" kubernetes.yaml.tpl | \
