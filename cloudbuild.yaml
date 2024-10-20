@@ -43,7 +43,7 @@ steps:
 
   - name: "gcr.io/cloud-builders/git"
     id: Clone env repository 2
-    entrypoint: /bin/sh
+    entrypoint: "bash"
     args:
       - "-c"
       - |
@@ -67,7 +67,7 @@ steps:
   # This step pushes the manifest back to hello-cloudbuild-env
   - name: "gcr.io/cloud-builders/git"
     id: Push manifest
-    entrypoint: /bin/sh
+    entrypoint: "bash"
     args:
       - "-c"
       - |
