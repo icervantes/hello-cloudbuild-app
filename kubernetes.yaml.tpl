@@ -46,3 +46,5 @@ spec:
     port: 80
     targetPort: 8080
   type: LoadBalancer
+options:
+  logging: CLOUD_LOGGING_ONLY
