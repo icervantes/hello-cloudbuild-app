@@ -67,7 +67,7 @@ steps:
   # This step pushes the manifest back to hello-cloudbuild-env
   - name: "gcr.io/cloud-builders/gcloud"
     id: Push manifest
-    entrypoint: /bin/sh
+    entrypoint: bash
     args:
       - "-c"
       - |
