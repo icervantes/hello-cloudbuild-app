@@ -47,7 +47,7 @@ steps:
     args:
       - "-c"
       - |
-        GITHUB_TOKEN=$(gcloud secrets versions access latest --secret=github-token)
+        export GITHUB_TOKEN=$(gcloud secrets versions access latest --secret=github-token)
         git config --global user.email "lord.icervantes@gmail.com"
         git config --global user.name "icervantes"
         git clone https://$GITHUB_TOKEN@github.com/icervantes/hello-cloudbuild-env.git
@@ -72,7 +72,7 @@ steps:
       - "-c"
       - |
         cd hello-cloudbuild-env
-        GITHUB_TOKEN=$(gcloud secrets versions access latest --secret=github-token)
+        export GITHUB_TOKEN=$(gcloud secrets versions access latest --secret=github-token)
         git config --global user.email "lord.icervantes@gmail.com"
         git config --global user.name "icervantes"
         git remote set-url origin https://$GITHUB_TOKEN@github.com/icervantes/hello-cloudbuild-env.git
