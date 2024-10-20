@@ -50,7 +50,7 @@ steps:
         export GITHUB_TOKEN=$(gcloud secrets versions access latest --secret=github-token)
         git config --global user.email "lord.icervantes@gmail.com"
         git config --global user.name "icervantes"
-        git clone https://$GITHUB_TOKEN@github.com/icervantes/hello-cloudbuild-env.git
+        git clone "https://$GITHUB_TOKEN@github.com/icervantes/hello-cloudbuild-env.git"
         cd hello-cloudbuild-env
         git checkout candidate
 
@@ -75,7 +75,7 @@ steps:
         export GITHUB_TOKEN=$(gcloud secrets versions access latest --secret=github-token)
         git config --global user.email "lord.icervantes@gmail.com"
         git config --global user.name "icervantes"
-        git remote set-url origin https://$GITHUB_TOKEN@github.com/icervantes/hello-cloudbuild-env.git
+        git remote set-url origin "https://$GITHUB_TOKEN@github.com/icervantes/hello-cloudbuild-env.git"
         git add kubernetes.yaml
         git commit -m "Deployingimage us-central1-docker.pkg.dev/$PROJECT_ID/my-repository/hello-cloudbuild:${SHORT_SHA}
         Built from commit ${COMMIT_SHA} of repository hello-cloudbuild-app
